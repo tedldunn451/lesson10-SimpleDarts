@@ -10,8 +10,8 @@ namespace lesson10_SimpleDarts
     {
         private Player _player1;
         private Player _player2;
+        private Random _random;
         private int DARTS_PER_ROUND = 3;
-
 
         public Game()
         {
@@ -21,34 +21,32 @@ namespace lesson10_SimpleDarts
             _player2 = new Player();
             _player2.Name = "Player 2";
 
+            _random = new Random();
         }
 
         public string Play()
         {
-            while(_player1.Score < 300 || _player2.Score < 300)
+            while(_player1.Score < 300 && _player2.Score < 300)
             {
                 // Player 1 throws his three darts and determines his score for this round
-                _player1.Score = PlayerTurn(_player1);
+                PlayerTurn(_player1);
 
                 // Player 2 throws his three darts and determines his score for this round
-                _player2.Score = PlayerTurn(_player2);
-
+                PlayerTurn(_player2);
             }
 
             return displayResults();
             
         }
 
-        public int PlayerTurn(Player player)
+        public void PlayerTurn(Player player)
         {
             for (int i = 0; i < DARTS_PER_ROUND; i++)
             {
-                Dart dart = new Dart();
+                Dart dart = new Dart(_random);
                 dart.Throw();
-                player.Score += Score.calculateScore(dart.Score, dart.SpecialScore);
+                player.Score += Score.CalculateScore(dart.Value, dart.SpecialScore);
             }
-
-            return player.Score;
         }
 
         public string displayResults()
