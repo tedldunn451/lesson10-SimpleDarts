@@ -13,5 +13,11 @@ namespace lesson10_SimpleDarts
         {
 
         }
+
+        protected void playButton_Click(object sender, EventArgs e)
+        {
+            Game game = new Game();
+            resultLabel.Text = game.Play();
+        }
     }
 }
